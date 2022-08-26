@@ -5,6 +5,8 @@ router.get('/products', productController.getAllProducts);
 router.get('/products/:id', productController.getProductById);
 router.get('/products/name/:name', productController.getProductByName);
 router.get('products/provider/name', productController.getProductByProviderName);
-router.post('/products', productController.createProduct);
+router.post('/products', productController.addProduct);
+router.put('/products/id/:id', productController.modifyProductStockById);
+router.delete('/products/id/:id',productController.deleteProductById);
 
 module.exports = router;

@@ -107,24 +107,16 @@ providerController.createProvider = async (req, res) => {
     }
 }
 
-providerController.modifyProvider = async (req, res) => {
+providerController.modifyProviderById = async (req, res) => {
     try{
         const filter = {_id: req.params.id};
         
-        const provider = await Provider.findByIdAndUpdate(req.params.id);
+        const provider = await Provider.findById(req.params.id);
         
         const update = {
             name: req.body.name,
             phoneNumber: req.body.phoneNumber
         };
-        if(req.user_role!='admin'){
-            return res.status(404).json(
-                {
-                    success: true,
-                    message: "You don't have permission to update providers"
-                }
-            );
-        }
 
         if(!provider){
             return res.status(404).json(
@@ -137,7 +129,7 @@ providerController.modifyProvider = async (req, res) => {
         
         await Provider.findOneAndUpdate(filter, update);
         
-        const providerUpdated = await Provider.findOne(filter).select(['-password','-__v']);
+        const providerUpdated = await Provider.findOne(filter).select(['-__v']);
         
         return res.status(200).json(
             {
@@ -170,15 +162,7 @@ providerController.modifyProvider = async (req, res) => {
 providerController.deleteProviderById = async (req, res) => {
     try {
         const {id} = req.params;
-        const providerDeleted = await Provider.findByIdAndDelete(id).select(['-password','-__v']);
-        if(req.user_role!='admin'){
-            return res.status(404).json(
-                {
-                    success: true,
-                    message: "You don't have permission to delete providers"
-                }
-            );
-        }
+        const providerDeleted = await Provider.findByIdAndDelete(id).select(['-__v']);
 
         return res.status(200).json({
             success: true,

@@ -108,5 +108,113 @@ productController.getProductByProviderName = async (req,res) => {
     }
 }
 
+productController.addProduct = async (req,res) => {
+    try{
+        const {name, details, price, stock, provider} = req.body;
+        
+        if(!name || !details || !price || !stock || !provider){
+            return res.status(400).json({
+                success: false,
+                message: 'missing fields'
+            });
+        }
+
+        const newProduct = {
+            name,
+            details,
+            price,
+            stock,
+            provider
+        }
+
+        await Product.create(newProduct);
+
+        return res.status(200).json(
+            {
+                success: true,
+                message: 'Product created succesfully',
+                data: newProduct
+            }
+        )
+    }catch(error){
+        return res.status(500).json(
+            {
+                success: false,
+                message: "Error adding product"
+                
+            }
+        )
+    }
+}
+
+productController.modifyProductStockById = async (req,res) => {
+    try{
+        const filter = {_id: req.params.id};
+        const product = await Product.findById(req.params.id);
+        const update = {
+            stock: req.body.stock
+        }
+        if(!product) {
+            return res.status(404).json(
+                {
+                    success: true,
+                    message: "Product not found",
+                    data: []
+                }
+            ); 
+        }
+        await Product.findOneAndUpdate(filter, update);
+        const productUpdated = await Product.findOne(filter).select(['-__v']);
+        return res.status(200).json(
+            {
+                success: true,
+                message: "Stock updated succesfully",
+                data: productUpdated
+            }
+        );
+    }catch(error){
+        if(error?.message.includes('Cast to ObjectId failed')) {
+            return res.status(404).json(
+                {
+                    success: true,
+                    message: "Product not found"
+                }
+            )
+        };
+
+        return res.status(500).json(
+            {
+                success: false,
+                message: "Error finding product",
+                error: error?.message || error
+            }
+        );   
+    }
+    
+}
+
+productController.deleteProductById = async (req, res) => {
+    try {
+        const {id} = req.params;
+        const productDeleted = await Product.findByIdAndDelete(id).select(['-__v']);
+
+        return res.status(200).json({
+            success: true,
+            message: "Delete product sucessfully",
+            data: productDeleted
+        })
+
+    
+    } catch (error) {
+        return res.status(500).json(
+            {
+                success: false,
+                message: 'Error deleting product',
+                data: error?.message ||error
+            }
+        )
+    }
+};
+
 
 module.exports = productController;
