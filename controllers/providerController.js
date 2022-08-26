@@ -107,4 +107,33 @@ providerController.createProvider = async (req, res) => {
     }
 }
 
+providerController.modifyProvider = async (req, res) => {
+    try{
+        const filter = {_id: req.params.id};
+        const user = await Provider.findByIdAndUpdate(req.params.id);
+        const update = {
+            name: req.body.name,
+            phoneNumber: req.body.phoneNumber
+        };
+        
+    }catch(error){
+        if(error?.message.includes('Cast to ObjectId failed')) {
+            return res.status(404).json(
+                {
+                    success: true,
+                    message: "Provider not found"
+                }
+            )
+        };
+
+        return res.status(500).json(
+            {
+                success: false,
+                message: "Error finding provider",
+                error: error?.message || error
+            }
+        );  
+    }
+}
+
 module.exports = providerController;
