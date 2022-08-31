@@ -2,6 +2,13 @@ const express = require('express');
 require('dotenv').config();
 const db = require('./config/database');
 
+const userRoutes = require('./routes/userRoutes');
+const providerRoutes = require('./routes/providerRoutes');
+const productRoutes = require('./routes/productRoutes');
+const orderRoutes = require ('./routes/orderRoutes');
+
+const app = express();
+
 //middleware
 app.use(express.json())
 
@@ -18,6 +25,10 @@ app.use((req, res, next) => {
 const PORT = process.env.PORT || 4000;
 
 //routes
+app.use('/api', userRoutes);
+app.use('/api', providerRoutes);
+app.use('/api', productRoutes);
+app.use('/api', orderRoutes);
 
 app.get('/', (req, res)=> {
     return res.send('Bienvenidos al backend de e-sneakers');
