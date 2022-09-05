@@ -38,13 +38,13 @@ app.get('/', (req, res)=> {
 
 app.get('*',(req,res)=>{
     return res.status(404).send('404 route not found')
-})
+});
 
 //connect database
 
 db().then(()=>{
     app.listen(PORT, ()=> console.log('Server is running in ' + PORT));
-    }).catch((error)=>{
-        console.log('Error connecting to mongoDB ', error);
-    })
+}).catch((error)=>{
+    console.log('Error connecting to mongoDB ', error);
+})
     
