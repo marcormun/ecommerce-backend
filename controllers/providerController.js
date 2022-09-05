@@ -52,7 +52,7 @@ providerController.getProviderById = async (req, res) => {
 
 providerController.getProviderByName = async (req, res) => {
     try{
-        const provider = await Provider.findOne({name: req.params.id});
+        const provider = await Provider.findOne({name: req.params.name});
         if(!provider){
             return res.status(200).json({
                 success: true,
@@ -76,14 +76,14 @@ providerController.getProviderByName = async (req, res) => {
 
 providerController.createProvider = async (req, res) => {
     try{
-        const {name, phoneNumber} = req.body;
+        const {name, phone} = req.body;
 
         const newProvider = {
             name,
-            phoneNumber
+            phone
         };
 
-        if(!name || !phoneNumber){
+        if(!name || !phone){
             return res.status(200).json({
                 success: false,
                 message: 'Name and phone number are required'

@@ -11,7 +11,7 @@ productController.getAllProducts = async (req, res) => {
                 message: 'Products not found'
             }); 
         }
-        return res.status(200),json({
+        return res.status(200).json({
             success: true,
             message: 'Get all products retreved succesfully',
             data: products
@@ -51,7 +51,7 @@ productController.getProductById = async (req, res) => {
 
 productController.getProductByName = async (req, res) => {
     try{
-        const product = await Product.findOne({name: req.params.id});
+        const product = await Product.findOne({name: req.params.name});
         if(!product){
             return res.status(200).json({
                 success: true,

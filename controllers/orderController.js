@@ -48,9 +48,9 @@ orderController.getAllOrdersByUser = async (req,res) => {
 
 orderController.addOrder = async (req,res) => {
     try{
-        const {orderDate, status, userId, productId} = req.body;
+        const {orderDate, status, imgUrl, userId, productId} = req.body;
         
-        if(!orderDate || !status || !userId || !productId){
+        if(!orderDate || !status || !imgUrl || !userId || !productId){
             return res.status(400).json({
                 success: false,
                 message: 'missing fields'
@@ -60,6 +60,7 @@ orderController.addOrder = async (req,res) => {
         const newOrder = {
             orderDate,
             status,
+            imgUrl,
             userId,
             productId
         }
@@ -133,7 +134,7 @@ orderController.modifyOrderStatusById = async (req,res) => {
 orderController.deleteOrderById = async (req, res) => {
     try {
         const {id} = req.params;
-        const orderDeleted = await Order.findByIdAndDelete(id).select(['-__v']);
+        const orderDeleted = await Order.findByIdAndDelete(id);
 
         return res.status(200).json({
             success: true,
