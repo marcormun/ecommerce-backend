@@ -110,9 +110,9 @@ productController.getProductByProviderName = async (req,res) => {
 
 productController.addProduct = async (req,res) => {
     try{
-        const {name, details, price, stock, provider} = req.body;
+        const {name, details, price, stock, image, provider} = req.body;
         
-        if(!name || !details || !price || !stock || !provider){
+        if(!name || !details || !price || !stock || !image || !provider){
             return res.status(400).json({
                 success: false,
                 message: 'missing fields'
@@ -124,6 +124,7 @@ productController.addProduct = async (req,res) => {
             details,
             price,
             stock,
+            image,
             provider
         }
 
