@@ -92,7 +92,7 @@ authController.login = async (req, res) => {
             );  
         };
      
-        const token = jwt.sign({user_id : user._id, user_name: user.name, user_surname: user.surname, user_email: user.email, user_addres: user.address, user_role: user.role, user_phone: user.phone, user_password: user.password}, process.env.JWT_SECRET, { expiresIn: '10h' });
+        const token = jwt.sign({user_id : user._id, user_name: user.name, user_surname: user.surname, user_email: user.email, user_address: user.address, user_role: user.role, user_phone: user.phone, user_password: user.password}, process.env.JWT_SECRET, { expiresIn: '10h' });
         
         return res.status(200).json(
             {
