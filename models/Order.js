@@ -10,10 +10,6 @@ const orderSchema = new mongoose.Schema({
         enum: ['processing','send','delivered'],
         required:true,
     },
-    imgUrl:{
-        type:String,
-        required:true
-    },
     userId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
