@@ -73,9 +73,10 @@ productController.getProductByName = async (req, res) => {
     }
 }
 
-productController.getProductByProviderName = async (req,res) => {
+productController.getProductByProviderId = async (req,res) => {
     try{
-        let {provider} = req.body;
+        let provider = req.params.id;
+        console.log(req.params.providerId)
 
         const product = await Product.find({provider});
 
@@ -101,7 +102,7 @@ productController.getProductByProviderName = async (req,res) => {
         return res.status(500).json(
             {
                 success: false,
-                message: "Error retrieving product by provider name"
+                message: "Error retrieving product by provider id"
                 
             }
         )
