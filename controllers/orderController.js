@@ -1,4 +1,5 @@
 const Order = require ('../models/Order');
+const Product = require ('../models/Product');
 
 const orderController = {};
 
@@ -49,6 +50,12 @@ orderController.getAllOrdersByUser = async (req,res) => {
 orderController.addOrder = async (req,res) => {
     try{
         const {orderDate, status, userId, productId} = req.body;
+
+        const producto = await Product.find({_id: productId});
+        
+        console.log(producto)
+
+        const productImg = producto[0].image;
         
         if(!orderDate || !status || !userId || !productId){
             return res.status(400).json({
@@ -61,7 +68,8 @@ orderController.addOrder = async (req,res) => {
             orderDate,
             status,
             userId,
-            productId
+            productId,
+            productImg
         }
 
         await Order.create(newOrder);
