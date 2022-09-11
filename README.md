@@ -85,6 +85,8 @@ GET /api/orders -> Listar los pedidos de todos los usuarios
 ### BBDD
 
 Este es el modelo relacional de la base de datos.
+<img width="689" alt="image" src="https://user-images.githubusercontent.com/102702041/189542206-1194cc49-cbf8-47a0-9b06-ec58d13fc440.png">
+
 
 
 ## Autor
