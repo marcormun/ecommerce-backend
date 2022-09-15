@@ -4,6 +4,8 @@ Backend para la tienda electrónica de sneakers Z-SNKRS, centrada en productos c
 
 BBDD hecha con MongoDB, lógica hecha con node, express y mongoose.
 
+Se puede testear a través del siguiente [enlace](https://zsnkrs.herokuapp.com/)
+
 [Enlace](https://github.com/marcormun/videoclub-web) al github de la web.
 
 # Tabla
